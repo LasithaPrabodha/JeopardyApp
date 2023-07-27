@@ -1,0 +1,273 @@
+@font-face {
+  font-family: jeopardy;
+  src: url(/assets/fonts/gyparody.ttf);
+}
+@font-face {
+  font-family: itckorinna;
+  src: url(/assets/fonts/ITCKorinna.ttf);
+}
+@font-face {
+  font-family: swiss-911;
+  src: url(/assets/fonts/Swiss-911.otf);
+}
+
+body {
+  margin: 0;
+}
+nav {
+  position: fixed;
+  top: 0;
+  padding-left: 32px;
+}
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-family: jeopardy, Courier, monospace;
+}
+#root {
+  background-image: url(/assets/images/background.jpeg);
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+routes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+welcome-message {
+  display: block;
+}
+
+welcome-message h2 {
+  margin: 0;
+  line-height: 0;
+  font-family: jeopardy, Courier, monospace;
+}
+
+welcome-message h1 {
+  position: relative;
+  margin: 0;
+  font-size: 100px;
+  font-family: jeopardy, Courier, monospace;
+}
+
+welcome-message {
+  color: #fff;
+  text-align: right;
+}
+.glow {
+  color: #fff;
+}
+
+#btn-start,
+#btn-setup {
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  color: #0f1111;
+  cursor: pointer;
+  line-height: 36px;
+  padding: 0 10px 0 11px;
+  font-size: 20px;
+  font-family: itckorinna, Courier, monospace;
+}
+
+#btn-start:hover,
+#btn-setup:hover {
+  background-color: #d1d1d1;
+}
+.teams {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  justify-content: center;
+}
+
+team {
+  background: #fff;
+  font-family: itckorinna, Courier, monospace;
+  padding: 18px 32px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 24px;
+  position: relative;
+}
+
+team .attempt {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgb(0 0 0 / 10%);
+  width: 100%;
+}
+
+.attempt span {
+  cursor: pointer;
+}
+
+team h2 {
+  margin: 0;
+}
+
+team p {
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+team.winning {
+  position: relative;
+}
+team.winning::before {
+  content: "Winning!";
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
+  color: #fff;
+  text-shadow: 3px 3px black;
+}
+
+.game-grid {
+  display: flex;
+  gap: 4px;
+  position: relative;
+}
+
+category,
+question {
+  font-family: swiss-911, Courier, monospace;
+  width: 13vw;
+  height: 12vh;
+  background-color: #011996;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 24px;
+  border-radius: 5px;
+}
+
+category {
+  margin-bottom: 10px;
+  font-size: 46px;
+  text-align: center;
+}
+
+question {
+  cursor: pointer;
+  color: #e4933b;
+  font-size: 56px;
+  transition: 0.2s ease;
+}
+
+question:hover {
+  font-size: 64px;
+}
+
+question.answered {
+  color: #011996;
+}
+
+.time-remaining {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  margin-bottom: 18px;
+  visibility: hidden;
+}
+
+.time-remaining.elapsing {
+  visibility: visible;
+}
+
+.time-remaining > div {
+  width: 0.5vw;
+  height: 5px;
+}
+
+.time-remaining .active {
+  background-color: red;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.d-none {
+  display: none;
+}
+
+.setup-form {
+  font-size: 32px;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.setup-form label {
+  flex-basis: 80%;
+  color: #fff;
+
+  font-family: itckorinna, Courier, monospace;
+}
+
+.setup-form input {
+  flex-basis: 20%;
+  font-size: 20px;
+}
+.d-flex {
+  display: flex;
+  width: 100%;
+}
+
+#btn-start {
+  margin-top: 36px;
+  width: 100px;
+}
+#btn-reset {
+  float: right;
+  width: fit-content;
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: #fff;
+
+  font-family: jeopardy, Courier, monospace;
+}
+game-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.current-question {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: #011996;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 46px;
+  justify-content: center;
+  color: #fff;
+  font-family: itckorinna, Courier, monospace;
+}
+.current-question span {
+  padding: 32px;
+}
