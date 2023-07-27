@@ -75,6 +75,7 @@ export default {
     state.answeredQuestions = [];
     state.selectedBox = null;
     state.question = null;
+    state.winner = null;
 
     return state;
   },

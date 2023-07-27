@@ -19,6 +19,7 @@ export default class Home extends Page {
 
     button.addEventListener("click", () => {
       this.store.dispatch("setLocation", "setup");
+      this.store.dispatch("resetGame");
     });
 
     this.element.appendChild(h2);
