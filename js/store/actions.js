@@ -1,4 +1,4 @@
-import { getRandomQuestion } from "../helpers/actions-helper.js";
+import { getRandomItemsFromArray, getRandomQuestion } from "../helpers/actions-helper.js";
 import { getRequest } from "../helpers/http-request-helper.js";
 
 export default {
@@ -12,10 +12,26 @@ export default {
     window.location.hash = payload;
     context.commit("setLocation", payload);
   },
-  loadCategories(context, payload) {
-    getRequest("/categories?count=6").then((result) => {
-      context.commit("setCategories", result);
-    });
+  async loadCategories(context, payload) {
+    if (localStorage.getItem("categories")) {
+      const list = JSON.parse(localStorage.getItem("categories"));
+      const randomItems = getRandomItemsFromArray(list, 6);
+
+      context.commit("setCategories", randomItems);
+      return;
+    }
+
+    const result = await Promise.all(
+      Array(10)
+        .fill()
+        .map((v, i) => getRequest(`/categories?count=100&offset=${(i + 1) * 100}`))
+    );
+
+    const completeList = [].concat(...result);
+    localStorage.setItem("categories", JSON.stringify(completeList));
+
+    const randomItems = getRandomItemsFromArray(completeList, 6);
+    context.commit("setCategories", randomItems);
   },
   setSelectedQuestionAndAnswer(context, payload) {
     getRequest(`/clues?category=${payload.category}&value=${payload.index * 100}`)

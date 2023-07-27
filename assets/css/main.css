@@ -18,7 +18,7 @@ nav {
   position: fixed;
   top: 24px;
   padding-left: 32px;
-} 
+}
 #root {
   background-image: url(../images/background.jpeg);
   background-position: center;
@@ -247,7 +247,7 @@ game-view {
   flex-direction: column;
 }
 
-.current-question {
+current-question {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -262,6 +262,6 @@ game-view {
   color: #fff;
   font-family: itckorinna, Courier, monospace;
 }
-.current-question span {
+current-question span {
   padding: 32px;
 }

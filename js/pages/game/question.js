@@ -1,6 +1,7 @@
 import { generate, select } from "../../helpers/dom-helper.js";
 import Component from "../../lib/component.js";
 import store from "../../store/index.js";
+import CurrentQuestion from "./current-question.js";
 
 export default class Question extends Component {
   constructor(props) {
@@ -22,22 +23,11 @@ export default class Question extends Component {
     const question = this.store.state.question;
 
     if (question && selectedBox && selectedBox === qid) {
-      const questionDiv = generate("div").setId("question").setClass("current-question");
-      const questionText = generate("span").setContentText(question.question);
-      questionDiv.appendChild(questionText);
-
-      questionDiv.addEventListener("click", () => {
-        if (questionText.innerText === question.answer) {
-          this.store.dispatch("closeQuestion");
-        } else {
-          questionText.setContentText(question.answer);
-        }
-      });
-
       const gameGrid = select(".game-grid");
 
-      if (gameGrid && !gameGrid.querySelector("#question")) {
-        gameGrid.appendChild(questionDiv);
+      if (gameGrid && !gameGrid.querySelector("current-question")) {
+        const questionDiv = new CurrentQuestion({ question });
+        gameGrid.appendChild(questionDiv.element);
       }
     }
 
