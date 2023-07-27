@@ -13,4 +13,9 @@
     this.innerText = innerText;
     return this;
   };
+
+  HTMLElement.prototype.setAttrib = function (name, value) {
+    this.setAttribute(name, value);
+    return this;
+  };
 })();

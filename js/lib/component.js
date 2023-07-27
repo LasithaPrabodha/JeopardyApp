@@ -1,4 +1,4 @@
-import { generate, select } from "../helpers/dom-helper.js";
+import { generate } from "../helpers/dom-helper.js";
 import Store from "../store/store.js";
 
 export default class Component {

@@ -15,41 +15,10 @@ export default class Setup extends Page {
     const div1 = generate("div").setClass("d-flex");
     const div2 = generate("div").setClass("d-flex");
 
-    const label1 = generate("label").setContentText("No of teams/players");
-    label1.setAttribute("for", "noOfTeams");
+    this.generateInput1(div1);
+    this.generateInput2(div2);
 
-    const input1 = generate("input").setId("noOfTeams");
-    input1.setAttribute("type", "number");
-    input1.setAttribute("name", "noOfTeams");
-    input1.setAttribute("value", "2");
-    input1.setAttribute("min", "2");
-    input1.setAttribute("max", "5");
-    input1.setAttribute("required", "true");
-    input1.onchange = (event) => {
-      this.noOfTeams = +event.target.value;
-    };
-
-    div1.appendChild(label1);
-    div1.appendChild(input1);
-
-    const label2 = generate("label").setContentText("No of question per category");
-    label2.setAttribute("for", "noOfQuestions");
-    const input2 = generate("input").setId("noOfQuestions");
-    input2.setAttribute("type", "number");
-    input2.setAttribute("name", "noOfQuestions");
-    input2.setAttribute("value", "3");
-    input2.setAttribute("min", "3");
-    input2.setAttribute("max", "5");
-    input2.setAttribute("required", "true");
-    input2.onchange = (event) => {
-      this.noOfQuestions = +event.target.value;
-    };
-
-    div2.appendChild(label2);
-    div2.appendChild(input2);
-
-    const button = generate("button").setId("btn-start").setContentText("Start");
-    button.setAttribute("type", "submit");
+    const button = generate("button").setId("btn-start").setContentText("Start").setAttrib("type", "submit");
 
     form.appendChild(div1);
     form.appendChild(div2);
@@ -58,6 +27,56 @@ export default class Setup extends Page {
     form.onsubmit = this.onsubmit.bind(this);
 
     this.element.appendChild(form);
+  }
+
+  generateInput1(container) {
+    const label1 = generate("label").setContentText("No of teams/players").setAttrib("for", "noOfTeams");
+
+    const input1 = generate("input")
+      .setId("noOfTeams")
+      .setAttrib("type", "number")
+      .setAttrib("name", "noOfTeams")
+      .setAttrib("value", "2")
+      .setAttrib("min", "2")
+      .setAttrib("max", "5")
+      .setAttrib("required", "true");
+
+    input1.onchange = (event) => {
+      this.noOfTeams = +event.target.value;
+    };
+
+    container.appendChild(label1);
+    container.appendChild(input1);
+  }
+
+  generateInput2(container) {
+    const label2 = generate("label").setContentText("No of question per category").setAttrib("for", "noOfQuestions");
+
+    const input2 = generate("input")
+      .setId("noOfQuestions")
+      .setAttrib("type", "number")
+      .setAttrib("name", "noOfQuestions")
+      .setAttrib("value", "3")
+      .setAttrib("min", "3")
+      .setAttrib("max", "5")
+      .setAttrib("required", "true");
+
+    input2.onchange = (event) => {
+      this.noOfQuestions = +event.target.value;
+    };
+
+    container.appendChild(label2);
+    container.appendChild(input2);
+  }
+
+  generateTeamNameInputs() {
+    const label2 = generate("label").setContentText("Team names").setAttrib("for", "team1");
+
+    for (let i = 1; i <= this.noOfTeams; i++) {
+      const input = generate("input");
+      
+      
+    }
   }
 
   onsubmit(event) {

@@ -7,10 +7,10 @@ export default class Team extends Component {
   constructor(props) {
     super({ store, selector: "team", ...props });
 
-    this.element.addEventListener("click", this.showYesNo.bind(this));
+    this.element.addEventListener("click", this.onClick.bind(this));
   }
 
-  showYesNo(mainEvent) {
+  onClick(mainEvent) {
     if (mainEvent.target.tagName === "SPAN" || !this.store.state.question) {
       return;
     } else if (this.yesNoOpened) {
@@ -18,7 +18,10 @@ export default class Team extends Component {
       select(".attempt").remove();
       return;
     }
+    this.openYesNo();
+  }
 
+  openYesNo() {
     var div = generate("div").setClass("attempt");
 
     var span1 = generate("span").setId("btn-correct").setContentText("✅");
@@ -39,6 +42,7 @@ export default class Team extends Component {
     div.appendChild(span1);
     div.appendChild(span2);
     this.element.appendChild(div);
+
     this.yesNoOpened = true;
   }
 
