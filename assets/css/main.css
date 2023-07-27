@@ -1,14 +1,14 @@
 @font-face {
   font-family: jeopardy;
-  src: url(/assets/fonts/gyparody.ttf);
+  src: url(../fonts/gyparody.ttf);
 }
 @font-face {
   font-family: itckorinna;
-  src: url(/assets/fonts/ITCKorinna.ttf);
+  src: url(../fonts/ITCKorinna.ttf);
 }
 @font-face {
   font-family: swiss-911;
-  src: url(/assets/fonts/Swiss-911.otf);
+  src: url(../fonts/Swiss-911.otf);
 }
 
 body {
@@ -20,7 +20,7 @@ nav {
   padding-left: 32px;
 } 
 #root {
-  background-image: url(/assets/images/background.jpeg);
+  background-image: url(../images/background.jpeg);
   background-position: center;
   height: 100vh;
   width: 100%;
