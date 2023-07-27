@@ -46,14 +46,14 @@ export default {
   addPoints(state, payload) {
     const team = state.teams.find((team) => team.id === payload.teamId);
 
-    team.score += state.question.value;
+    team.score += state.question.value * 2;
 
     return state;
   },
   deductPoints(state, payload) {
     const team = state.teams.find((team) => team.id === payload.teamId);
 
-    team.score -= state.question.value;
+    team.score -= state.question.value * 2;
 
     return state;
   },
