@@ -18,14 +18,22 @@ export default {
     });
   },
   setSelectedQuestionAndAnswer(context, payload) {
-    getRequest("/clues?category=" + payload.category).then((result) => {
-      let question = result.find((q) => q.value && q.value >= payload.index * 100);
+    getRequest(`/clues?category=${payload.category}&value=${payload.index * 100}`)
+      .then((result) => {
+        if (result.length) {
+          return getRandomQuestion(result);
+        }
 
-      question = question ?? getRandomQuestion(result);
-
-      context.commit("setSelectedQuestionAndAnswer", question);
-      context.commit("setSelectedBox", `${payload.category}-${payload.index}`);
-    });
+        return getRequest("/clues?category=" + payload.category).then((result) => {
+          result.sort((a, b) => a.value - b.value);
+          const question = result.find((q) => q.value && q.value >= payload.index * 100);
+          return question ?? getRandomQuestion(result);
+        });
+      })
+      .then((question) => {
+        context.commit("setSelectedQuestionAndAnswer", question);
+        context.commit("setSelectedBox", `${payload.category}-${payload.index}`);
+      });
   },
   addPoints(context, payload) {
     context.commit("addPoints", payload);

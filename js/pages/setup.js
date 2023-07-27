@@ -3,8 +3,8 @@ import Page from "../lib/page.js";
 import store from "../store/index.js";
 
 export default class Setup extends Page {
-  noOfTeams = 0;
-  noOfQuestions = 0;
+  noOfTeams = 2;
+  noOfQuestions = 3;
   constructor() {
     super({ store, selector: "setup-grid" });
   }
@@ -21,6 +21,7 @@ export default class Setup extends Page {
     const input1 = generate("input").setId("noOfTeams");
     input1.setAttribute("type", "number");
     input1.setAttribute("name", "noOfTeams");
+    input1.setAttribute("value", "2");
     input1.setAttribute("min", "2");
     input1.setAttribute("max", "5");
     input1.setAttribute("required", "true");
@@ -36,6 +37,7 @@ export default class Setup extends Page {
     const input2 = generate("input").setId("noOfQuestions");
     input2.setAttribute("type", "number");
     input2.setAttribute("name", "noOfQuestions");
+    input2.setAttribute("value", "3");
     input2.setAttribute("min", "3");
     input2.setAttribute("max", "5");
     input2.setAttribute("required", "true");
