@@ -1,6 +1,5 @@
 export const defaultState = {
   teams: [],
-  location: null,
   categories: [],
   setup: {
     questions: 3,

@@ -5,9 +5,11 @@ export default class Store {
   reducer = {};
   state = {};
   observer = null;
+  location = null;
 
   constructor(params) {
     this.observer = new StateObserver();
+    this.location = new StateObserver();
 
     if (params.hasOwnProperty("actions")) {
       this.actions = params.actions;

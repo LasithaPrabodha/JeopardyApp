@@ -91,6 +91,6 @@ export default class Setup extends Page {
 
     this.store.dispatch("setTeams", teams);
     this.store.dispatch("setQuestionsCount", this.noOfQuestions);
-    this.store.dispatch("setLocation", "game");
+    this.store.dispatch("navigate", "game");
   }
 }

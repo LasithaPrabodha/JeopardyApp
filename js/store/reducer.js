@@ -10,11 +10,6 @@ export default {
     state.setup.questions = payload;
     return state;
   },
-  setLocation(state, payload) {
-    state.location = payload;
-
-    return state;
-  },
   setWinner(state, payload) {
     const winner = state.teams.reduce((prev, current) => (+prev.score > +current.score ? prev : current), {});
 

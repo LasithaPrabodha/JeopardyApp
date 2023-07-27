@@ -9,9 +9,9 @@ export default {
   setQuestionsCount(context, payload) {
     context.commit("setQuestionsCount", payload);
   },
-  setLocation(context, payload) {
+  navigate(context, payload) {
     window.location.hash = payload;
-    context.commit("setLocation", payload);
+    context.location.publish(payload);
   },
   async loadCategories(context, payload) {
     if (localStorage.getItem("categories")) {

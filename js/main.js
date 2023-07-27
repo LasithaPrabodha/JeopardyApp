@@ -11,9 +11,9 @@ routes.set("game", Game);
 
 let prevLocation = null;
 
-store.observer.subscribe(() => {
-  if (prevLocation !== store.state.location) {
-    prevLocation = store.state.location;
+store.location.subscribe((route) => {
+  if (prevLocation !== route) {
+    prevLocation = route;
 
     routes.forEach((route, key) => {
       route.destroy && route.destroy();
@@ -22,13 +22,13 @@ store.observer.subscribe(() => {
     // clear all subscriptions on route change
     store.observer.stateChange = [];
 
-    var page = routes.get(store.state.location); 
-    routes.set(store.state.location, new page());
+    const page = routes.get(route);
+    routes.set(route, new page());
   }
 });
 
 if (window.location.hash === "") {
-  store.commit("setLocation", "home");
+  store.dispatch("navigate", "home");
 } else {
-  store.commit("setLocation", window.location.hash.substring(1));
+  store.dispatch("navigate", window.location.hash.substring(1));
 }

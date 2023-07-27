@@ -18,7 +18,7 @@ export default class Home extends Page {
     button.innerText = "Start the game";
 
     button.addEventListener("click", () => {
-      this.store.dispatch("setLocation", "setup");
+      this.store.dispatch("navigate", "setup");
       this.store.dispatch("resetGame");
     });
 
