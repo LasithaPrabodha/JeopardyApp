@@ -24,6 +24,11 @@ export default {
   },
   setCategories(state, payload) {
     state.categories = payload;
+    state.teams.forEach((team) => (team.score = 0));
+    state.answeredQuestions = [];
+    state.selectedBox = null;
+    state.question = null;
+    state.winner = null;
 
     return state;
   },

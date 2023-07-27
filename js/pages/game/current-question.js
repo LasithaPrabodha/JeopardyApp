@@ -7,8 +7,6 @@ export default class CurrentQuestion extends Component {
   constructor(props) {
     super({ store, selector: "current-question", ...props });
 
-    speaker.speak(this.props.question.question);
-
     this.element.addEventListener("click", () => {
       speaker.stopIfSpeak();
 

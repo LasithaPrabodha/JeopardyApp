@@ -1,5 +1,6 @@
 import { getRandomItemsFromArray, getRandomQuestion } from "../helpers/actions-helper.js";
 import { getRequest } from "../helpers/http-request-helper.js";
+import speaker from "../helpers/speaker.js";
 
 export default {
   setTeams(context, payload) {
@@ -47,6 +48,7 @@ export default {
         });
       })
       .then((question) => {
+        speaker.speak(question.question);
         context.commit("setSelectedQuestionAndAnswer", question);
         context.commit("setSelectedBox", `${payload.category}-${payload.index}`);
       });

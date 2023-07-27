@@ -1,4 +1,4 @@
-import { generate, select } from "../../helpers/dom-helper.js";
+import { select } from "../../helpers/dom-helper.js";
 import Component from "../../lib/component.js";
 import store from "../../store/index.js";
 import CurrentQuestion from "./current-question.js";

@@ -1,4 +1,3 @@
-import speaker from "./helpers/speaker.js";
 import Game from "./pages/game/game.js";
 import Home from "./pages/home.js";
 import Setup from "./pages/setup.js";
@@ -19,6 +18,9 @@ store.observer.subscribe(() => {
     routes.forEach((route, key) => {
       route.destroy && route.destroy();
     });
+
+    // clear all subscriptions on route change
+    store.observer.stateChange = [];
 
     var page = routes.get(store.state.location); 
     routes.set(store.state.location, new page());
