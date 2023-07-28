@@ -261,7 +261,26 @@ current-question {
   justify-content: center;
   color: #fff;
   font-family: itckorinna, Courier, monospace;
+  justify-content: center;
+  flex-direction: column;
 }
 current-question span {
   padding: 32px;
+}
+
+current-question img {
+  position: absolute;
+  bottom: 46px;
+}
+
+.swal2-title {
+  font-family: jeopardy, Courier, monospace;
+}
+
+.swal2-html-container {
+  font-family: itckorinna, Courier, monospace;
+}
+.swal2-confirm,
+.swal2-cancel {
+  font-family: itckorinna, Courier, monospace;
 }

@@ -1,6 +1,6 @@
 import { getRandomItemsFromArray, getRandomQuestion } from "../helpers/actions-helper.js";
 import { getRequest } from "../helpers/http-request-helper.js";
-import speaker from "../helpers/speaker.js";
+import speaker from "../lib/speaker.js";
 
 export default {
   setTeams(context, payload) {
@@ -16,7 +16,7 @@ export default {
   async loadCategories(context, payload) {
     if (localStorage.getItem("categories")) {
       const list = JSON.parse(localStorage.getItem("categories"));
-      const randomItems = getRandomItemsFromArray(list, 6);
+      const randomItems = getRandomItemsFromArray(list, 2);
 
       context.commit("setCategories", randomItems);
       return;
@@ -31,7 +31,7 @@ export default {
     const completeList = [].concat(...result);
     localStorage.setItem("categories", JSON.stringify(completeList));
 
-    const randomItems = getRandomItemsFromArray(completeList, 6);
+    const randomItems = getRandomItemsFromArray(completeList, 2);
     context.commit("setCategories", randomItems);
   },
   setSelectedQuestionAndAnswer(context, payload) {
@@ -48,9 +48,7 @@ export default {
         });
       })
       .then((question) => {
-        speaker.speak(question.question);
-        context.commit("setSelectedQuestionAndAnswer", question);
-        context.commit("setSelectedBox", `${payload.category}-${payload.index}`);
+        context.commit("setSelectedQuestionAndAnswer", { question, box: `${payload.category}-${payload.index}` });
       });
   },
   addPoints(context, payload) {
@@ -58,10 +56,7 @@ export default {
   },
   deductPoints(context, payload) {
     context.commit("deductPoints", payload);
-  },
-  addAnsweredQuestion(context, payload) {
-    context.commit("addAnsweredQuestion", payload);
-  },
+  }, 
   closeQuestion(context, payload) {
     context.commit("closeQuestion");
   },

@@ -28,7 +28,8 @@ export default {
     return state;
   },
   setSelectedQuestionAndAnswer(state, payload) {
-    state.question = payload;
+    state.question = payload.question;
+    state.selectedBox = payload.box;
 
     return state;
   },
@@ -47,6 +48,13 @@ export default {
     const team = state.teams.find((team) => team.id === payload.teamId);
 
     team.score += state.question.value * 2;
+    state.answeredQuestions.push(state.selectedBox);
+    state.selectedBox = null;
+    state.question = null;
+
+    if (state.answeredQuestions.length === state.categories.length * state.setup.questions) {
+      state.winner = state.teams.reduce((max, team) => (max.score > team.score ? max : team));
+    }
 
     return state;
   },
@@ -54,10 +62,6 @@ export default {
     const team = state.teams.find((team) => team.id === payload.teamId);
 
     team.score -= state.question.value * 2;
-
-    return state;
-  },
-  addAnsweredQuestion(state, payload) {
     state.answeredQuestions.push(state.selectedBox);
     state.selectedBox = null;
     state.question = null;

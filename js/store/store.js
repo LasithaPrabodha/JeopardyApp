@@ -1,15 +1,15 @@
-import StateObserver from "../lib/state-observer.js";
+import Observer from "../lib/observer.js";
 
 export default class Store {
   actions = {};
   reducer = {};
   state = {};
-  observer = null;
+  stateObserver = null;
   location = null;
 
   constructor(params) {
-    this.observer = new StateObserver();
-    this.location = new StateObserver();
+    this.stateObserver = new Observer();
+    this.location = new Observer();
 
     if (params.hasOwnProperty("actions")) {
       this.actions = params.actions;
@@ -46,7 +46,7 @@ export default class Store {
     // Assign the new state to current state
     this.state = Object.assign(this.state, newState);
 
-    this.observer.publish(this.state);
+    this.stateObserver.publish(this.state);
     localStorage.setItem("jstate", JSON.stringify(this.state));
 
     return true;

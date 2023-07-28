@@ -1,7 +1,8 @@
-import { generate } from "../../helpers/dom-helper.js";
+import { generate, select } from "../../helpers/dom-helper.js";
 import Page from "../../lib/page.js";
 import store from "../../store/index.js";
 import Category from "./category.js";
+import CurrentQuestion from "./current-question.js";
 import Question from "./question.js";
 import Team from "./team.js";
 
@@ -10,6 +11,39 @@ export default class Game extends Page {
     super({ store, selector: "game-view" });
 
     this.store.dispatch("loadCategories");
+
+    this.store.stateObserver.subscribe(() => {
+      const question = this.store.state.question;
+
+      if (question) {
+        const gameGrid = select(".game-grid");
+
+        if (gameGrid && !gameGrid.querySelector("current-question")) {
+          const questionDiv = new CurrentQuestion({ question });
+          gameGrid.appendChild(questionDiv.element);
+        }
+      }
+
+      const winner = this.store.state.winner;
+      if (winner) {
+        Swal.fire({
+          title: "Congratulations!",
+          text: `The winner is Team ${winner.id} with $${winner.score}. Do you want to play again?`,
+          imageUrl: "assets/images/winner.jpg",
+          imageHeight: 200,
+          showCancelButton: true,
+          focusConfirm: true,
+          confirmButtonText: "Yes",
+          cancelButtonText: "Nope",
+        }).then((value) => {
+          if (value.isConfirmed) {
+            this.store.dispatch("resetGame");
+          } else {
+            this.store.dispatch("navigate", "home");
+          }
+        });
+      }
+    });
   }
 
   render() {
@@ -22,7 +56,7 @@ export default class Game extends Page {
     if (this.store.state.categories.length) {
       const gameGrid = generate("div").setClass("game-grid");
 
-      for (let i = 1; i <= 6; i++) {
+      for (let i = 1; i <= this.store.state.categories.length; i++) {
         const gridCol = generate("div").setClass("grid-column");
 
         const category = new Category({

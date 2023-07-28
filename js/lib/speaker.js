@@ -1,10 +1,14 @@
+import Observer from "./observer.js";
+
 class Speaker {
   voices = [];
+  speaking = null;
 
   constructor() {
     speechSynthesis.addEventListener("voiceschanged", () => {
       this.voices = speechSynthesis.getVoices();
     });
+    this.speaking = new Observer();
   }
 
   speak(text) {
@@ -17,7 +21,13 @@ class Speaker {
     msg.pitch = 1; // From 0 to 2
     msg.text = text;
     msg.lang = "en";
+    msg.onend = () => {
+      this.speaking.publish(false);
+    };
+    this.speaking.publish(true);
 
+    this.stopIfSpeak();
+    
     speechSynthesis.speak(msg);
   }
 

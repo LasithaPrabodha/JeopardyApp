@@ -2,11 +2,10 @@ import { generate } from "../helpers/dom-helper.js";
 import Store from "../store/store.js";
 
 export default class Component {
-  store = null;
-  subscription = null;
-  element = null;
-  root = null;
   props = null;
+  store = null;
+  element = null;
+  state = null;
 
   constructor(props = {}) {
     if (props.hasOwnProperty("selector")) {
@@ -15,24 +14,13 @@ export default class Component {
 
     if (props.store instanceof Store) {
       this.store = props.store;
-
-      this.subscription = this.store.observer.subscribe(() => {
-        this.#generateHTML();
-      });
     }
+
     this.props = props;
-    
-    this.#generateHTML();
-  }
-
-  destroy() {
-    this.element.remove();
-    this.store.observer.unsubscribe(this.subscription);
-  }
-
-  #generateHTML() {
-    this.element.innerHTML = "";
-
     this.render();
+  }
+
+  setState(callback) {
+    this.state = callback(this.state);
   }
 }

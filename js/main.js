@@ -20,7 +20,7 @@ store.location.subscribe((route) => {
     });
 
     // clear all subscriptions on route change
-    store.observer.stateChange = [];
+    store.stateObserver.changes = [];
 
     const page = routes.get(route);
     routes.set(route, new page());

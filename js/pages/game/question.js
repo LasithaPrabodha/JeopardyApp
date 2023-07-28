@@ -1,7 +1,5 @@
-import { select } from "../../helpers/dom-helper.js";
 import Component from "../../lib/component.js";
 import store from "../../store/index.js";
-import CurrentQuestion from "./current-question.js";
 
 export default class Question extends Component {
   constructor(props) {
@@ -16,22 +14,11 @@ export default class Question extends Component {
   }
 
   render() {
-    const qid = `${this.props.category}-${this.props.index}`;
     this.element.setId(`q-${this.props.category}-${this.props.index}`).setContentText("$" + this.props.index * 200);
 
-    const selectedBox = this.store.state.selectedBox;
-    const question = this.store.state.question;
-
-    if (question && selectedBox && selectedBox === qid) {
-      const gameGrid = select(".game-grid");
-
-      if (gameGrid && !gameGrid.querySelector("current-question")) {
-        const questionDiv = new CurrentQuestion({ question });
-        gameGrid.appendChild(questionDiv.element);
-      }
-    }
-
-    if (this.store.state.answeredQuestions.findIndex((q) => q === qid) !== -1) {
+    if (
+      this.store.state.answeredQuestions.findIndex((q) => q === `${this.props.category}-${this.props.index}`) !== -1
+    ) {
       this.element.setClass("answered");
     }
   }

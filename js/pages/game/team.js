@@ -30,13 +30,11 @@ export default class Team extends Component {
     span1.addEventListener("click", (event) => {
       select(".attempt").remove();
       this.store.dispatch("addPoints", { teamId: this.props.index });
-      this.store.dispatch("addAnsweredQuestion");
     });
 
     span2.addEventListener("click", (event) => {
       select(".attempt").remove();
       this.store.dispatch("deductPoints", { teamId: this.props.index });
-      this.store.dispatch("addAnsweredQuestion");
     });
 
     div.appendChild(span1);
