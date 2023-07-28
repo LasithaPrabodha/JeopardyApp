@@ -1,10 +1,10 @@
 import { generate, select } from "../../helpers/dom-helper.js";
 import Page from "../../lib/page.js";
 import store from "../../store/index.js";
-import Category from "./category.js";
-import CurrentQuestion from "./current-question.js";
-import Question from "./question.js";
-import Team from "./team.js";
+import Category from "./components/category.js";
+import CurrentQuestion from "./components/current-question.js";
+import Question from "./components/question.js";
+import Team from "./components/team.js";
 
 export default class Game extends Page {
   constructor() {
@@ -26,22 +26,26 @@ export default class Game extends Page {
 
       const winner = this.store.state.winner;
       if (winner) {
-        Swal.fire({
-          title: "Congratulations!",
-          text: `The winner is Team ${winner.id} with $${winner.score}. Do you want to play again?`,
-          imageUrl: "assets/images/winner.jpg",
-          imageHeight: 200,
-          showCancelButton: true,
-          focusConfirm: true,
-          confirmButtonText: "Yes",
-          cancelButtonText: "Nope",
-        }).then((value) => {
-          if (value.isConfirmed) {
-            this.store.dispatch("resetGame");
-          } else {
-            this.store.dispatch("navigate", "home");
-          }
-        });
+        this.announceWinner(winner);
+      }
+    });
+  }
+
+  announceWinner(winner) {
+    Swal.fire({
+      title: "Congratulations!",
+      text: `The winner is Team ${winner.id} with $${winner.score}. Do you want to play again?`,
+      imageUrl: "assets/images/winner.jpg",
+      imageHeight: 200,
+      showCancelButton: true,
+      focusConfirm: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "Nope",
+    }).then((value) => {
+      if (value.isConfirmed) {
+        this.store.dispatch("resetGame");
+      } else {
+        this.store.dispatch("navigate", "home");
       }
     });
   }

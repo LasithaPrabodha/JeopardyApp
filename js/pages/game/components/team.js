@@ -1,6 +1,6 @@
-import { generate, select } from "../../helpers/dom-helper.js";
-import Component from "../../lib/component.js";
-import store from "../../store/index.js";
+import { generate, select } from "../../../helpers/dom-helper.js";
+import Component from "../../../lib/component.js";
+import store from "../../../store/index.js";
 
 export default class Team extends Component {
   yesNoOpened = false;

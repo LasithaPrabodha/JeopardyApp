@@ -7,14 +7,14 @@ export function getRandomQuestion(questions) {
   }
 }
 
-export function getRandomItemsFromArray(arr, numberOfItems) {
-  if (numberOfItems > arr.length) {
+export function getRandomItemsFromArray(arr, noOfItems) {
+  if (noOfItems > arr.length) {
     throw new Error("Number of items requested exceeds the array length.");
   }
 
   const randomItems = [];
 
-  while (randomItems.length < numberOfItems) {
+  while (randomItems.length < noOfItems) {
     let currentIndex = Math.floor(Math.random() * arr.length);
     if (randomItems.findIndex((item) => item.id === arr[currentIndex].id) === -1) {
       randomItems.push(arr[currentIndex]);

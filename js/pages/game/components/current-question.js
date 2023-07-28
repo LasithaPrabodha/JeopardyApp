@@ -1,7 +1,7 @@
-import { generate, select } from "../../helpers/dom-helper.js";
-import speaker from "../../lib/speaker.js";
-import Component from "../../lib/component.js";
-import store from "../../store/index.js";
+import { generate, select } from "../../../helpers/dom-helper.js";
+import speaker from "../../../lib/speaker.js";
+import Component from "../../../lib/component.js";
+import store from "../../../store/index.js";
 
 export default class CurrentQuestion extends Component {
   constructor(props) {

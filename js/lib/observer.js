@@ -14,4 +14,8 @@ export default class Observer {
   unsubscribe(index) {
     this.changes.splice(index, 1);
   }
+
+  unsubscribeAll(){
+    this.changes = [];
+  }
 }
