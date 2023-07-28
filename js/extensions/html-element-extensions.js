@@ -1,4 +1,4 @@
-(function () {
+export default function apply() {
   HTMLElement.prototype.setId = function (id) {
     this.id = id;
     return this;
@@ -18,4 +18,4 @@
     this.setAttribute(name, value);
     return this;
   };
-})();
+}

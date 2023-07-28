@@ -1,7 +1,10 @@
+import htmlExtensions from "./extensions/html-element-extensions.js";
 import Game from "./pages/game/game.js";
 import Home from "./pages/home.js";
 import Setup from "./pages/setup.js";
 import store from "./store/index.js";
+
+htmlExtensions.apply();
 
 const routes = new Map();
 
