@@ -1,6 +1,7 @@
 import { getRandomItemsFromArray, getRandomQuestion } from "../helpers/actions-helper.js";
 import { getRequest } from "../helpers/http-request-helper.js";
-import speaker from "../lib/speaker.js";
+
+const NO_OF_CATEGORIES = 6;
 
 export default {
   setTeams(context, payload) {
@@ -16,7 +17,7 @@ export default {
   async loadCategories(context, payload) {
     if (localStorage.getItem("categories")) {
       const list = JSON.parse(localStorage.getItem("categories"));
-      const randomItems = getRandomItemsFromArray(list, 2);
+      const randomItems = getRandomItemsFromArray(list, NO_OF_CATEGORIES);
 
       context.commit("setCategories", randomItems);
       return;
@@ -31,7 +32,7 @@ export default {
     const completeList = [].concat(...result);
     localStorage.setItem("categories", JSON.stringify(completeList));
 
-    const randomItems = getRandomItemsFromArray(completeList, 2);
+    const randomItems = getRandomItemsFromArray(completeList, NO_OF_CATEGORIES);
     context.commit("setCategories", randomItems);
   },
   setSelectedQuestionAndAnswer(context, payload) {
@@ -56,7 +57,7 @@ export default {
   },
   deductPoints(context, payload) {
     context.commit("deductPoints", payload);
-  }, 
+  },
   closeQuestion(context, payload) {
     context.commit("closeQuestion");
   },
