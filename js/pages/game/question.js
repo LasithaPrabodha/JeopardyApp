@@ -6,10 +6,12 @@ export default class Question extends Component {
     super({ store, selector: "question", ...props });
 
     this.element.addEventListener("click", () => {
-      this.store.dispatch("setSelectedQuestionAndAnswer", {
-        index: props.index,
-        category: props.category,
-      });
+      if (!this.element.classList.contains("answered")) {
+        this.store.dispatch("setSelectedQuestionAndAnswer", {
+          index: props.index,
+          category: props.category,
+        });
+      }
     });
   }
 
