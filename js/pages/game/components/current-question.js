@@ -61,8 +61,12 @@ export default class CurrentQuestion extends Component {
 
         this.store.dispatch("closeQuestion");
       });
+
       this.element.appendChild(questionText);
-      this.element.appendChild(button);
+
+      setTimeout(() => {
+        this.element.appendChild(button);
+      }, 3000);
     } else {
       const questionText = generate("span").setId("current-question-text").setContentText(this.props.question.question);
       this.element.appendChild(questionText);
