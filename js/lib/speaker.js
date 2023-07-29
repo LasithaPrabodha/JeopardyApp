@@ -3,6 +3,7 @@ import Observer from "./observer.js";
 class Speaker {
   voices = [];
   speaking = null;
+  mute = false;
 
   constructor() {
     speechSynthesis.addEventListener("voiceschanged", () => {
@@ -16,7 +17,7 @@ class Speaker {
 
     var msg = new SpeechSynthesisUtterance();
     msg.voice = this.voices[15];
-    msg.volume = 1; // From 0 to 1
+    msg.volume = this.mute ? 0 : 1; // From 0 to 1
     msg.rate = 1; // From 0.1 to 10
     msg.pitch = 1; // From 0 to 2
     msg.text = text;
@@ -27,7 +28,7 @@ class Speaker {
     this.speaking.publish(true);
 
     this.stopIfSpeak();
-    
+
     speechSynthesis.speak(msg);
   }
 

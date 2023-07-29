@@ -203,6 +203,10 @@ question.answered {
   display: none;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
 .setup-form {
   font-size: 32px;
   width: 50vw;
@@ -221,19 +225,26 @@ question.answered {
   flex-basis: 20%;
   font-size: 20px;
 }
+
+.team-names {
+  flex-basis: 20%;
+}
 .d-flex {
   display: flex;
   width: 100%;
+}
+
+.mt-2{
+  margin-top: 12px;
 }
 
 #btn-start {
   margin-top: 36px;
   width: 100px;
 }
-#btn-reset {
-  float: right;
+#btn-reset,
+#btn-speaker {
   width: fit-content;
-  align-self: flex-end;
   background: none;
   border: none;
   font-size: 26px;

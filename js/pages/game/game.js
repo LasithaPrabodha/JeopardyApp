@@ -1,5 +1,6 @@
 import { generate, select } from "../../helpers/dom-helper.js";
 import Page from "../../lib/page.js";
+import speaker from "../../lib/speaker.js";
 import store from "../../store/index.js";
 import Category from "./components/category.js";
 import CurrentQuestion from "./components/current-question.js";
@@ -9,7 +10,9 @@ import Team from "./components/team.js";
 export default class Game extends Page {
   constructor() {
     super({ store, selector: "game-view" });
+  }
 
+  onInit() {
     this.store.dispatch("loadCategories");
 
     this.store.stateObserver.subscribe(() => {
@@ -34,7 +37,7 @@ export default class Game extends Page {
   announceWinner(winner) {
     Swal.fire({
       title: "Congratulations!",
-      text: `The winner is Team ${winner.id} with $${winner.score}. Do you want to play again?`,
+      text: `The winner is ${winner.name} with $${winner.score}. Do you want to play again?`,
       imageUrl: "assets/images/winner.jpg",
       imageHeight: 200,
       showCancelButton: true,
@@ -51,11 +54,25 @@ export default class Game extends Page {
   }
 
   render() {
+    const speakBtn = generate("button")
+      .setId("btn-speaker")
+      .setContentText(speaker.mute ? "Speaker: Off" : "Speaker: On");
+
+    speakBtn.addEventListener("click", () => {
+      speaker.mute = !speaker.mute;
+
+      speakBtn.setContentText(speaker.mute ? "Speaker: Off" : "Speaker: On");
+    });
+
     const resetBtn = generate("button").setId("btn-reset").setContentText("Reset");
     resetBtn.addEventListener("click", () => {
       this.store.dispatch("resetGame");
     });
-    this.element.appendChild(resetBtn);
+
+    const settings = generate("div").setClass("d-flex").setClass("space-between");
+    settings.appendChild(speakBtn);
+    settings.appendChild(resetBtn);
+    this.element.appendChild(settings);
 
     if (this.store.state.categories.length) {
       const gameGrid = generate("div").setClass("game-grid");
@@ -83,8 +100,8 @@ export default class Game extends Page {
 
     const teams = generate("div").setClass("teams");
 
-    this.store.state.teams.forEach((_, key) => {
-      const team = new Team({ index: key + 1 });
+    this.store.state.teams.forEach((t, key) => {
+      const team = new Team({ index: key + 1, name: t.name });
       teams.appendChild(team.element);
     });
 

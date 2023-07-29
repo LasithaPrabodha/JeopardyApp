@@ -5,7 +5,7 @@ export default class Component {
   props = null;
   store = null;
   element = null;
-  state = null;
+  state = {};
 
   constructor(props = {}) {
     if (props.hasOwnProperty("selector")) {
@@ -17,10 +17,19 @@ export default class Component {
     }
 
     this.props = props;
-    this.render();
+
+    this.onInit();
+    this.#generateHTML();
   }
+  onInit() {}
 
   setState(callback) {
     this.state = callback(this.state);
+    this.#generateHTML();
+  }
+
+  #generateHTML() {
+    this.element.innerHTML = "";
+    this.render();
   }
 }

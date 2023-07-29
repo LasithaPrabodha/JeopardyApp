@@ -3,49 +3,29 @@ import Component from "../../../lib/component.js";
 import store from "../../../store/index.js";
 
 export default class Team extends Component {
-  yesNoOpened = false;
   constructor(props) {
     super({ store, selector: "team", ...props });
-
-    this.element.addEventListener("click", this.onClick.bind(this));
   }
 
-  onClick(mainEvent) {
-    if (mainEvent.target.tagName === "SPAN" || !this.store.state.question) {
-      return;
-    } else if (this.yesNoOpened) {
-      this.yesNoOpened = false;
-      select(".attempt").remove();
-      return;
-    }
-    this.openYesNo();
-  }
+  onInit() {
+    this.state = {
+      yesNoOpened: false,
+    };
 
-  openYesNo() {
-    var div = generate("div").setClass("attempt");
-
-    var span1 = generate("span").setId("btn-correct").setContentText("✅");
-    var span2 = generate("span").setId("btn-wrong").setContentText("❌");
-
-    span1.addEventListener("click", (event) => {
-      select(".attempt").remove();
-      this.store.dispatch("addPoints", { teamId: this.props.index });
+    this.element.addEventListener("click", (event) => {
+      if (event.target.tagName === "SPAN" || !this.store.state.question) {
+        return;
+      } else if (this.state.yesNoOpened) {
+        this.setState(() => ({ yesNoOpened: false }));
+        select(".attempt").remove();
+        return;
+      }
+      this.setState(() => ({ yesNoOpened: true }));
     });
-
-    span2.addEventListener("click", (event) => {
-      select(".attempt").remove();
-      this.store.dispatch("deductPoints", { teamId: this.props.index });
-    });
-
-    div.appendChild(span1);
-    div.appendChild(span2);
-    this.element.appendChild(div);
-
-    this.yesNoOpened = true;
   }
 
   render() {
-    const p = generate("p").setContentText("Team " + this.props.index);
+    const p = generate("p").setContentText(this.props.name);
     const timeRemaining = generate("div").setClass("time-remaining");
 
     for (let i = 0; i < 9; i++) {
@@ -61,5 +41,27 @@ export default class Team extends Component {
     this.element.appendChild(p);
     this.element.appendChild(timeRemaining);
     this.element.appendChild(score);
+
+    if (this.state.yesNoOpened) {
+      var div = generate("div").setClass("attempt");
+
+      var span1 = generate("span").setId("btn-correct").setContentText("✅");
+      var span2 = generate("span").setId("btn-wrong").setContentText("❌");
+
+      span1.addEventListener("click", (event) => {
+        select(".attempt").remove();
+        this.store.dispatch("addPoints", { teamId: this.props.index });
+      });
+
+      span2.addEventListener("click", (event) => {
+        select(".attempt").remove();
+        this.store.dispatch("deductPoints", { teamId: this.props.index });
+      });
+
+      div.appendChild(span1);
+      div.appendChild(span2);
+
+      this.element.appendChild(div);
+    }
   }
 }

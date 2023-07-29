@@ -7,6 +7,7 @@ export default class Page {
   element = null;
   root = null;
   props = null;
+  state = {};
 
   constructor(props = {}) {
     if (props.hasOwnProperty("selector")) {
@@ -16,17 +17,25 @@ export default class Page {
     if (props.store instanceof Store) {
       this.store = props.store;
 
-      this.init();
+      this.initStateObserver();
     }
     this.props = props;
 
+    this.onInit();
     this.#generateHTML();
 
     this.root = select("routes");
     this.root.appendChild(this.element);
   }
 
-  init() {
+  onInit() {}
+
+  setState(callback) {
+    this.state = callback(this.state);
+    this.#generateHTML();
+  }
+
+  initStateObserver() {
     this.subscription = this.store.stateObserver.subscribe(() => {
       this.#generateHTML();
     });
@@ -39,7 +48,6 @@ export default class Page {
 
   #generateHTML() {
     this.element.innerHTML = "";
-
     this.render();
   }
 }
