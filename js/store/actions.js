@@ -44,6 +44,7 @@ export default {
 
         return getRequest("/clues?category=" + payload.category).then((result) => {
           result.sort((a, b) => a.value - b.value);
+          // selects the question while skipping questions with null values
           const question = result.find((q) => q.value && q.value >= payload.index * 100);
           return question ?? getRandomQuestion(result);
         });
