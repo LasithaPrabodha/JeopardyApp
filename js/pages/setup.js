@@ -11,18 +11,13 @@ export default class Setup extends Page {
     this.state = {
       noOfTeams: 2,
       noOfQuestions: 3,
-      teams: [
-        {
-          id: 1,
-          name: "Team 1",
+      teams: Array(2)
+        .fill()
+        .map((_, i) => ({
           score: 0,
-        },
-        {
-          id: 2,
-          name: "Team 2",
-          score: 0,
-        },
-      ],
+          id: i + 1,
+          name: "Team " + (i + 1),
+        })),
     };
   }
 
@@ -45,7 +40,14 @@ export default class Setup extends Page {
 
     form.onsubmit = this.onsubmit.bind(this);
 
+    const instructions = generate("div")
+      .setId("instructions")
+      .setContentText(
+        "Instructions: \n- Click on available tiles to pop up a question. \n- Click on the team tile who answered the question to add or deduct points."
+      );
+
     this.element.appendChild(form);
+    this.element.appendChild(instructions);
   }
 
   generateInput1(container, container2) {

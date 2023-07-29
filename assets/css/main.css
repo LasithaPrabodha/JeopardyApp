@@ -19,6 +19,9 @@ nav {
   top: 24px;
   padding-left: 32px;
 }
+nav a {
+  cursor: pointer;
+}
 #root {
   background-image: url(../images/background.jpeg);
   background-position: center;
@@ -92,6 +95,7 @@ team {
   text-align: center;
   font-size: 24px;
   position: relative;
+  cursor: pointer;
 }
 
 team .attempt {
@@ -234,7 +238,7 @@ question.answered {
   width: 100%;
 }
 
-.mt-2{
+.mt-2 {
   margin-top: 12px;
 }
 
@@ -243,7 +247,9 @@ question.answered {
   width: 100px;
 }
 #btn-reset,
-#btn-speaker {
+#btn-speaker,
+#btn-answer,
+#btn-close {
   width: fit-content;
   background: none;
   border: none;
@@ -283,6 +289,10 @@ current-question img {
   position: absolute;
   bottom: 46px;
 }
+current-question button {
+  position: absolute;
+  bottom: 46px;
+}
 
 .swal2-title {
   font-family: jeopardy, Courier, monospace;
@@ -294,4 +304,10 @@ current-question img {
 .swal2-confirm,
 .swal2-cancel {
   font-family: itckorinna, Courier, monospace;
+}
+
+#instructions {
+  margin-top: 32px;
+  font-family: itckorinna, Courier, monospace;
+  color: white;
 }
