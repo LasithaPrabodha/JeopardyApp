@@ -22,12 +22,16 @@ export default {
       context.commit("setCategories", randomItems);
       return;
     }
-
-    const result = await Promise.all(
-      Array(10)
-        .fill()
-        .map((v, i) => getRequest(`/categories?count=100&offset=${(i + 1) * 100}`))
-    );
+    try {
+      const result = await Promise.all(
+        Array(10)
+          .fill()
+          .map((v, i) => getRequest(`/categories?count=100&offset=${(i + 1) * 100}`))
+      );
+    } catch (error) {
+      alert("jservice.io service error. API is not responding for the requests.");
+      return
+    }
 
     const completeList = [].concat(...result);
     localStorage.setItem("categories", JSON.stringify(completeList));
