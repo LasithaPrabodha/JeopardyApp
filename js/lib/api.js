@@ -6,7 +6,7 @@ export default class API {
   }
 
   static getClues(category, difficulty) {
-    return getRequest(`/categories${category}/random?orderby=Value${difficulty ? `&value=${difficulty}` : ""}`);
+    return getRequest(`/categories/${category}/random?orderby=Value${difficulty ? `&value=${difficulty}` : ""}`);
   }
 
   static getFinalClue() {
