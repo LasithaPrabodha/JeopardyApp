@@ -319,7 +319,7 @@ current-question button {
 
 .loading::after {
   content: "";
-  background-image: url(/assets/images/loading.gif);
+  background-image: url(../../assets/images/loading.gif);
   background-position: center;
   background-size: contain; 
   position: absolute;
