@@ -82,7 +82,7 @@ export default class Game extends Page {
 
         const category = new Category({
           index: i,
-          title: this.store.state.categories[i - 1].title,
+          title: this.store.state.categories[i - 1].name,
           id: this.store.state.categories[i - 1].id,
         });
 

@@ -7,6 +7,6 @@ export default class Category extends Component {
   }
 
   render() {
-    this.element.setId("cat-" + this.props.id).setContentText(this.props.name);
+    this.element.setId("cat-" + this.props.id).setContentText(this.props.title);
   }
 }
