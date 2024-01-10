@@ -12,7 +12,7 @@ export default class CurrentQuestion extends Component {
     speaker.speaking.subscribe((speaking) => {
       const questionText = select("#current-question-text");
 
-      if (!speaking && questionText?.innerText === this.props.question.question) {
+      if (!speaking && questionText?.innerText === this.props.question.clue) {
         var img = generate("img")
           .setAttrib("src", "assets/images/countdown.gif?a=" + Math.random())
           .setAttrib("width", 100);
@@ -42,7 +42,7 @@ export default class CurrentQuestion extends Component {
   }
 
   onInit() {
-    speaker.speak(this.props.question.question);
+    speaker.speak(this.props.question.clue);
 
     this.removeImageIfSpeaking();
 
@@ -68,7 +68,7 @@ export default class CurrentQuestion extends Component {
         this.element.appendChild(button);
       }, 3000);
     } else {
-      const questionText = generate("span").setId("current-question-text").setContentText(this.props.question.question);
+      const questionText = generate("span").setId("current-question-text").setContentText(this.props.question.clue);
       this.element.appendChild(questionText);
     }
   }

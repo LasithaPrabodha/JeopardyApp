@@ -1,4 +1,4 @@
-const BASE_URL = "https://jservice.io/api";
+const BASE_URL = "https://jeopardy-api.azurewebsites.net/api";
 
 export function getRequest(url) {
   return new Promise((resolve, reject) => {
