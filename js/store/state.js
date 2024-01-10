@@ -6,6 +6,8 @@ export const defaultState = {
     teams: 2,
   },
 
+  selectedSpeaker: 0,
+
   // reset
   winner: null,
   answeredQuestions: [],

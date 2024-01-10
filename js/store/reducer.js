@@ -1,6 +1,11 @@
 import { defaultState } from "./state.js";
 
 export default {
+  setSelectedSpeaker(state, payload) {
+    state.selectedSpeaker = payload;
+    return state;
+  },
+
   setTeams(state, payload) {
     state.teams = payload;
 

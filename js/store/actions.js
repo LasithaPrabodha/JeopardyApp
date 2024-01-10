@@ -4,6 +4,9 @@ export default {
   setTeams(context, payload) {
     context.commit("setTeams", payload);
   },
+  setSpeaker(context, payload) {
+    context.commit("setSelectedSpeaker", payload);
+  },
   setQuestionsCount(context, payload) {
     context.commit("setQuestionsCount", payload);
   },
@@ -15,8 +18,6 @@ export default {
     try {
       const result = await API.getCategories();
 
-      localStorage.setItem("categories", JSON.stringify(result));
-
       context.commit("setCategories", result);
     } catch (error) {
       alert("Service error. API is not responding for the requests.");
@@ -24,9 +25,17 @@ export default {
     }
   },
   setSelectedQuestionAndAnswer(context, payload) {
-    API.getClues(payload.category, payload.index * 100).then((question) => {
-      context.commit("setSelectedQuestionAndAnswer", { question, box: `${payload.category}-${payload.index}` });
-    });
+    API.getClues(payload.category, payload.index * 200)
+      .then((question) => {
+        context.commit("setSelectedQuestionAndAnswer", { question, box: `${payload.category}-${payload.index}` });
+      })
+      .catch((error) => {
+        if (error.status === 404) {
+          API.getClues(payload.category).then((question) => {
+            context.commit("setSelectedQuestionAndAnswer", { question, box: `${payload.category}-${payload.index}` });
+          });
+        }
+      });
   },
   addPoints(context, payload) {
     context.commit("addPoints", payload);

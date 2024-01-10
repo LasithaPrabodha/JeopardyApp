@@ -53,7 +53,7 @@ export default class Game extends Page {
     });
   }
 
-  render() {
+  generateSpeakerBtn() {
     const speakBtn = generate("button")
       .setId("btn-speaker")
       .setContentText(speaker.mute ? "Speaker: Off" : "Speaker: On");
@@ -64,14 +64,60 @@ export default class Game extends Page {
       speakBtn.setContentText(speaker.mute ? "Speaker: Off" : "Speaker: On");
     });
 
+    return speakBtn;
+  }
+
+  generateResetBtn() {
     const resetBtn = generate("button").setId("btn-reset").setContentText("Reset");
     resetBtn.addEventListener("click", () => {
       this.store.dispatch("resetGame");
     });
 
+    return resetBtn;
+  }
+
+  generateSpeakerList() {
+    if (typeof speechSynthesis === "undefined") {
+      return;
+    }
+    const speakerSelect = generate("select").setId("select-speaker")
+    speakerSelect.setAttribute('style', "height: 80%");
+    const voices = speechSynthesis.getVoices();
+
+    for (let i = 0; i < voices.length; i++) {
+      const option = document.createElement("option");
+      option.textContent = `${voices[i].name} (${voices[i].lang})`;
+
+      if (voices[i].default) {
+        option.textContent += " — DEFAULT";
+      }
+
+      option.setAttribute("data-lang", voices[i].lang);
+      option.setAttribute("data-name", voices[i].name);
+      option.setAttribute("value", i);
+
+      speakerSelect.appendChild(option);
+    }
+
+    speakerSelect.value = this.store.state.selectedSpeaker || 0;
+
+    speakerSelect.addEventListener("change", (e)=>{
+      const index = e.target.value;
+      this.store.dispatch("setSpeaker", +index)
+    })
+
+    return speakerSelect;
+  }
+
+  render() {
     const settings = generate("div").setClass("d-flex").setClass("space-between");
-    settings.appendChild(speakBtn);
-    settings.appendChild(resetBtn);
+
+    const speaker = generate("div").setClass("d-flex").setClass("align-items-center");
+    speaker.appendChild(this.generateSpeakerBtn());
+    speaker.appendChild(this.generateSpeakerList())
+
+    settings.appendChild(speaker);
+    settings.appendChild(this.generateResetBtn());
     this.element.appendChild(settings);
 
     if (this.store.state.categories.length) {

@@ -10,7 +10,7 @@ export function getRequest(url) {
 
     xhr.onload = function () {
       if (xhr.status != 200) {
-        reject(`Error ${xhr.status}: ${xhr.statusText}`);
+        reject({ status: xhr.status, message: xhr.statusText });
       } else {
         resolve(xhr.response);
       }

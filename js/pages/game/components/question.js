@@ -8,6 +8,7 @@ export default class Question extends Component {
 
   onInit() {
     this.element.addEventListener("click", () => {
+      this.element.classList.add('loading')
       if (!this.element.classList.contains("answered")) {
         this.store.dispatch("setSelectedQuestionAndAnswer", {
           index: this.props.index,

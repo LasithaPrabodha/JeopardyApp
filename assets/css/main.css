@@ -159,7 +159,7 @@ question {
 
 category {
   margin-bottom: 10px;
-  font-size: 46px;
+  font-size: 30px;
   text-align: center;
 }
 
@@ -168,6 +168,7 @@ question {
   color: #e4933b;
   font-size: 56px;
   transition: 0.2s ease;
+  position: relative;
 }
 
 question:hover {
@@ -310,4 +311,20 @@ current-question button {
   margin-top: 32px;
   font-family: itckorinna, Courier, monospace;
   color: white;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.loading::after {
+  content: "";
+  background-image: url(/assets/images/loading.gif);
+  background-position: center;
+  background-size: contain; 
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #eeeeee36;
+  background-repeat: no-repeat;
 }
