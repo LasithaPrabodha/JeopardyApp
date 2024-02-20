@@ -52,7 +52,7 @@ export default {
   addPoints(state, payload) {
     const team = state.teams.find((team) => team.id === payload.teamId);
 
-    team.score += state.question.value * 2;
+    team.score += state.question.value;
     state.answeredQuestions.push(state.selectedBox);
     state.selectedBox = null;
     state.question = null;
@@ -66,7 +66,7 @@ export default {
   deductPoints(state, payload) {
     const team = state.teams.find((team) => team.id === payload.teamId);
 
-    team.score -= state.question.value * 2;
+    team.score -= state.question.value;
     state.answeredQuestions.push(state.selectedBox);
     state.selectedBox = null;
     state.question = null;
