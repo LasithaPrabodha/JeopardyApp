@@ -1,6 +1,10 @@
 import { defaultState } from "./state.js";
 
 export default {
+  setIsLoading(state, payload){
+    state.isLoading = payload;
+    return state;
+  },
   setSelectedSpeaker(state, payload) {
     state.selectedSpeaker = payload;
     return state;

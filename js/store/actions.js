@@ -16,9 +16,11 @@ export default {
   },
   async loadCategories(context, payload) {
     try {
+      context.commit("setIsLoading", true); 
       const result = await API.getCategories();
 
       context.commit("setCategories", result);
+      context.commit("setIsLoading", false);
     } catch (error) {
       alert("Service error. API is not responding for the requests.");
       return;

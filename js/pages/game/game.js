@@ -17,10 +17,10 @@ export default class Game extends Page {
 
     this.store.stateObserver.subscribe(() => {
       const question = this.store.state.question;
+      const isLoading = this.store.state.isLoading;
+      const gameGrid = select(".game-grid");
 
       if (question) {
-        const gameGrid = select(".game-grid");
-
         if (gameGrid && !gameGrid.querySelector("current-question")) {
           const questionDiv = new CurrentQuestion({ question });
           gameGrid.appendChild(questionDiv.element);
@@ -30,6 +30,12 @@ export default class Game extends Page {
       const winner = this.store.state.winner;
       if (winner) {
         this.announceWinner(winner);
+      }
+
+      if (isLoading) {
+        gameGrid.setClass("loading-text");
+      } else {
+        gameGrid.removeClass("loading-text");
       }
     });
   }
@@ -80,8 +86,8 @@ export default class Game extends Page {
     if (typeof speechSynthesis === "undefined") {
       return;
     }
-    const speakerSelect = generate("select").setId("select-speaker")
-    speakerSelect.setAttribute('style', "height: 80%");
+    const speakerSelect = generate("select").setId("select-speaker");
+    speakerSelect.setAttribute("style", "height: 80%");
     const voices = speechSynthesis.getVoices();
 
     for (let i = 0; i < voices.length; i++) {
@@ -101,10 +107,10 @@ export default class Game extends Page {
 
     speakerSelect.value = this.store.state.selectedSpeaker || 0;
 
-    speakerSelect.addEventListener("change", (e)=>{
+    speakerSelect.addEventListener("change", (e) => {
       const index = e.target.value;
-      this.store.dispatch("setSpeaker", +index)
-    })
+      this.store.dispatch("setSpeaker", +index);
+    });
 
     return speakerSelect;
   }
@@ -114,7 +120,7 @@ export default class Game extends Page {
 
     const speaker = generate("div").setClass("d-flex").setClass("align-items-center");
     speaker.appendChild(this.generateSpeakerBtn());
-    speaker.appendChild(this.generateSpeakerList())
+    speaker.appendChild(this.generateSpeakerList());
 
     settings.appendChild(speaker);
     settings.appendChild(this.generateResetBtn());

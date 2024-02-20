@@ -1,4 +1,5 @@
 export const defaultState = {
+  isLoading: false,
   teams: [],
   categories: [],
   setup: {

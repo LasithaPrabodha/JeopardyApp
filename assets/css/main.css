@@ -328,3 +328,15 @@ current-question button {
   background-color: #eeeeee36;
   background-repeat: no-repeat;
 }
+
+.loading-text::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #eeeeee75;
+  background-repeat: no-repeat;
+  background-image: url(../../assets/images/main-loader.gif);
+  background-position: center;
+  background-size: 25%; 
+}

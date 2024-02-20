@@ -8,6 +8,10 @@ export default function apply() {
     this.classList.add(className);
     return this;
   };
+  HTMLElement.prototype.removeClass = function (className) {
+    this.classList.remove(className);
+    return this;
+  };
 
   HTMLElement.prototype.setContentText = function (innerText) {
     this.innerText = innerText;
