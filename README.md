@@ -5,3 +5,5 @@ This project is a simple implementation of the classic TV game show "Jeopardy". 
 However, with this project, I managed to develop and include a UI Framework (class components with state management and routing), Observable pattern, and Redux state in the simplest way possible.
 
 [DEMO](https://lasithaprabodha.github.io/jeopardy/)
+
+[API for the app](https://github.com/LasithaPrabodha/jeopardy-api)
